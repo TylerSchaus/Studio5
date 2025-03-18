@@ -1,7 +1,8 @@
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
-using DG.Tweening; 
+using DG.Tweening;
+using System.Collections;
 
 public class LivesCounterUI : MonoBehaviour
 {
@@ -35,6 +36,17 @@ public class LivesCounterUI : MonoBehaviour
     public void UpdateLives(int lives)
     {
         toUpdate.SetText($"{lives}");
-        livesTextContainer.DOLocalMoveY(containerInitPosition + moveAmount, duration); 
+        livesTextContainer.DOLocalMoveY(containerInitPosition + moveAmount, duration);
+
+        StartCoroutine(ResetLivesContainer(lives));
+    }
+
+    private IEnumerator ResetLivesContainer(int lives)
+    {
+        yield return new WaitForSeconds(duration);
+
+        current.SetText($"{lives}");
+        Vector3 localPosition = livesTextContainer.localPosition;
+        livesTextContainer.localPosition = new Vector3(localPosition.x, containerInitPosition, localPosition.z);
     }
 }
