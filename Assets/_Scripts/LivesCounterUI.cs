@@ -9,6 +9,7 @@ public class LivesCounterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI current;
     [SerializeField] private TextMeshProUGUI toUpdate;
     [SerializeField] private Transform livesTextContainer;
+    [SerializeField] private GameObject gameOverDisplay; 
     [SerializeField] private float duration;
 
     private float containerInitPosition;
@@ -48,5 +49,15 @@ public class LivesCounterUI : MonoBehaviour
         current.SetText($"{lives}");
         Vector3 localPosition = livesTextContainer.localPosition;
         livesTextContainer.localPosition = new Vector3(localPosition.x, containerInitPosition, localPosition.z);
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverDisplay.SetActive(true); 
+    }
+
+    public void HideGameOver()
+    {
+        gameOverDisplay.SetActive(false);
     }
 }
