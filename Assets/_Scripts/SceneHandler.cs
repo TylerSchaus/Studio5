@@ -19,10 +19,22 @@ public class SceneHandler : SingletonMonoBehavior<SceneHandler>
 
     protected override void Awake()
     {
-        base.Awake();
+    base.Awake();
+    if (Instance == this)
+    {
+        DontDestroyOnLoad(gameObject);
         initXPosition = transitionCanvas.transform.localPosition.x;
-        SceneManager.LoadScene(menuScene);
         SceneManager.sceneLoaded += OnSceneLoad;
+    }
+    else
+    {
+        Destroy(gameObject);
+    }
+    }
+    private void Start()
+    {
+        // Delay loading the menu scene until after initialization
+        SceneManager.LoadScene(menuScene);
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode _)
