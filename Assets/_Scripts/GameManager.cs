@@ -9,6 +9,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     [SerializeField] private Ball ball;
     [SerializeField] private Transform bricksContainer;
     [SerializeField] private LivesCounterUI livesCounter; 
+    [SerializeField] private ParticleSystem brickDestroyEffect;
 
     private int currentBrickCount;
     private int totalBrickCount;
@@ -33,22 +34,29 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     public void OnBrickDestroyed(Vector3 position)
     {
-        // fire audio here
-        // implement particle effect here
-        // add camera shake here
+        // Fire audio here (if needed)
+        ParticleSystem effect = Instantiate(brickDestroyEffect, position, Quaternion.Euler(180, 0, 0));
+        effect.Play();
+        Destroy(effect.gameObject, 1f);
+
+        // Add camera shake here (if implemented)
+
         currentBrickCount--;
         Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining");
+
         if (currentBrickCount == 0)
-    {
-        if (SceneHandler.Instance != null)
         {
-            SceneHandler.Instance.LoadNextScene();
+            if (SceneHandler.Instance != null)
+            {
+                SceneHandler.Instance.LoadNextScene();
+            }
+            else
+            {
+                Debug.LogError("SceneHandler.Instance is null. Active scene: " + SceneManager.GetActiveScene().name);
+            }
         }
-        else
-        {
-            Debug.LogError("SceneHandler.Instance is null. Active scene: " + SceneManager.GetActiveScene().name);        }
     }
-    }
+
 
     public void KillBall()
     {
