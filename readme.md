@@ -23,4 +23,4 @@ Watch the demo video here:
 ## Team Members
 - **Carter Meekison**
 - **Mete Cil**
-- **Tyler Davids**
+- **Tyler Schaus**
