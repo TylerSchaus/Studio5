@@ -29,7 +29,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
 private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 {
-    if (scene.name == "MainMenu") // replace with your exact menu scene name
+    if (scene.name == "MainMenu") 
     {
         score = 0;
         maxLives = 3;
