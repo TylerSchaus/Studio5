@@ -2015,6 +2015,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4141104068464894589, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141104068464894589, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5197698672203351829, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
       propertyPath: duration
       value: 0.5
@@ -2029,7 +2037,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8012095499494258021, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
       propertyPath: m_fontSize
-      value: 72
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012095499494258021, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8032399188618062228, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
       propertyPath: m_AnchorMax.y
