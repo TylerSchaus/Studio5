@@ -2437,6 +2437,7 @@ MonoBehaviour:
   ball: {fileID: 4561635119993004754}
   bricksContainer: {fileID: 796630123}
   livesCounter: {fileID: 1344329072}
+  brickDestroyEffect: {fileID: 4079310568960737208, guid: 8ff731e09163e4b4f90e25120d53e3c1, type: 3}
   scoreCounter: {fileID: 1719863341}
 --- !u!1001 &1708692028
 PrefabInstance:

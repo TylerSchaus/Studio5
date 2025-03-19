@@ -8,6 +8,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     [SerializeField] private Ball ball;
     [SerializeField] private Transform bricksContainer;
     [SerializeField] private LivesCounterUI livesCounter; 
+    [SerializeField] private ParticleSystem brickDestroyEffect;
     [SerializeField] private ScoreCounterUI scoreCounter;
 
     private int currentBrickCount;
@@ -111,9 +112,13 @@ private void OnDisable()
 
     public void OnBrickDestroyed(Vector3 position)
     {
-        // fire audio here
-        // implement particle effect here
-        // add camera shake here
+        // Fire audio here (if needed)
+        ParticleSystem effect = Instantiate(brickDestroyEffect, position, Quaternion.Euler(180, 0, 0));
+        effect.Play();
+        Destroy(effect.gameObject, 1f);
+
+        // Add camera shake here (if implemented)
+
         currentBrickCount--;
         score += 10;
         if (scoreCounter != null)
@@ -121,21 +126,24 @@ private void OnDisable()
             scoreCounter.UpdateScore(score);
         }
         Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining");
+
         if (currentBrickCount == 0)
-    {
-        if (SceneHandler.Instance != null)
         {
-            SceneHandler.Instance.LoadNextScene();
+            if (SceneHandler.Instance != null)
+            {
+                SceneHandler.Instance.LoadNextScene();
+            }
+            else
+            {
+                Debug.LogError("SceneHandler.Instance is null. Active scene: " + SceneManager.GetActiveScene().name);
+            }
         }
-        else
-        {
-            Debug.LogError("SceneHandler.Instance is null. Active scene: " + SceneManager.GetActiveScene().name);        }
-    }
     }
     public int GetScore()
 {
     return score;
 }
+
 
     public void KillBall()
     {
