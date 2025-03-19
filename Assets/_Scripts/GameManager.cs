@@ -14,18 +14,95 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     private int totalBrickCount;
     private int score = 0;
 
-    private void OnEnable()
+    protected override void Awake()
     {
-        InputHandler.Instance.OnFire.AddListener(FireBall);
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+{
+    // Update Ball
+    GameObject ballObj = GameObject.FindWithTag("Ball");
+    if (ballObj != null)
+    {
+        ball = ballObj.GetComponent<Ball>();
         ball.ResetBall();
+    }
+
+    // Update bricks container
+    GameObject bricksObj = GameObject.Find("BricksContainer");
+    if (bricksObj != null)
+    {
+        bricksContainer = bricksObj.transform;
         totalBrickCount = bricksContainer.childCount;
         currentBrickCount = bricksContainer.childCount;
     }
 
-    private void OnDisable()
+    // Update LivesCounterUI
+    GameObject livesPanelObj = GameObject.Find("LivesPanel");
+    if (livesPanelObj != null)
+    {
+        livesCounter = livesPanelObj.GetComponent<LivesCounterUI>();
+        livesCounter.UpdateLives(maxLives);
+    }
+    else
+    {
+        Debug.LogWarning("LivesPanel not found in scene: " + scene.name);
+    }
+
+    // Update ScoreCounterUI
+    GameObject scorePanelObj = GameObject.Find("ScorePanel");
+    if (scorePanelObj != null)
+    {
+        scoreCounter = scorePanelObj.GetComponent<ScoreCounterUI>();
+        // Delay update to let the UI initialize
+        StartCoroutine(DelayedScoreUpdate());
+    }
+    else
+    {
+        Debug.LogWarning("ScorePanel not found in scene: " + scene.name);
+    }
+}
+
+
+    private void OnEnable()
+{
+    if (InputHandler.Instance != null)
+    {
+        InputHandler.Instance.OnFire.AddListener(FireBall);
+    }
+    
+    if (ball != null)
+    {
+        ball.ResetBall();
+    }
+    
+    if (bricksContainer != null)
+    {
+        totalBrickCount = bricksContainer.childCount;
+        currentBrickCount = bricksContainer.childCount;
+    }
+}
+private IEnumerator DelayedScoreUpdate()
+{
+    yield return null; // Wait one frame (or yield return new WaitForSeconds(0.1f); for a longer delay)
+    scoreCounter.UpdateScore(score);
+}
+
+private void OnDisable()
+{
+    if (InputHandler.Instance != null)
     {
         InputHandler.Instance.OnFire.RemoveListener(FireBall);
     }
+}
 
     private void FireBall()
     {
@@ -55,6 +132,10 @@ public class GameManager : SingletonMonoBehavior<GameManager>
             Debug.LogError("SceneHandler.Instance is null. Active scene: " + SceneManager.GetActiveScene().name);        }
     }
     }
+    public int GetScore()
+{
+    return score;
+}
 
     public void KillBall()
     {

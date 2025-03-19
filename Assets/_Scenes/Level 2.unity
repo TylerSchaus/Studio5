@@ -1967,6 +1967,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2112775032056203759, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_text
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2597471280796181631, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2019,6 +2023,14 @@ PrefabInstance:
       propertyPath: gameOverDisplay
       value: 
       objectReference: {fileID: 1344329073}
+    - target: {fileID: 8012095499494258021, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_text
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012095499494258021, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
     - target: {fileID: 8032399188618062228, guid: 08fe86d50de830640be3170058af3bb7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
