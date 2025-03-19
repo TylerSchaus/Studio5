@@ -29,6 +29,11 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
 private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 {
+    if (scene.name == "MainMenu") 
+    {
+        score = 0;
+        maxLives = 3;
+    }
     // Update Ball
     GameObject ballObj = GameObject.FindWithTag("Ball");
     if (ballObj != null)
@@ -131,7 +136,9 @@ private void OnDisable()
         {
             if (SceneHandler.Instance != null)
             {
+                Debug.LogError("Next Scene. All bricks are destroyed");
                 SceneHandler.Instance.LoadNextScene();
+                
             }
             else
             {
